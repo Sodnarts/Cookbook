@@ -1,0 +1,315 @@
+.container__create {
+    min-height: 100vh;
+    width: 80vw;
+    left: 50%;
+    transform: translate(-50%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(235,235,235, .8);
+
+}
+
+.heading--create {
+    position: relative;
+    font-size: 2.8rem;
+    color: #333;
+    font-family:'Courier New', Courier, monospace;
+    align-self: center;
+}
+
+.container__dish--name {
+    padding-top: 12rem;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.container__dish--information {
+    padding-top: 12rem;
+    display: flex;
+    flex-direction: column;
+     width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.container__create--ingredients {
+    padding-top: 12rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+.p--ingredient {
+    font-size: 1.6rem;
+    padding-left: 2.4rem;
+    letter-spacing: .24rem;
+    margin: 1.4rem 1rem 0 1rem;
+    color: #444;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(34,34,34, 0.3);
+    }
+
+.create--ingredient-col-1 {
+    width: calc((100% - 14rem) / 2);
+}
+
+.create--ingredient-col-2 {
+    width: calc((100%) / 2);
+}
+
+.container__create--instructions {
+    padding-top: 12rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 10vh;
+    position: relative;
+    padding-bottom: 10rem;
+}
+
+.btn-container {
+    width: 90%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn-remove--box {
+    background-color: #ff475a !important;
+    margin-right: 2rem !important;
+    color: #eee !important;
+    font-size: 1.2rem !important;
+}
+
+.btn-add--title {
+    background-color: #5193fc !important;
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+    color: #eee !important;
+    font-size: 1.2rem !important; 
+}
+
+.btn-add--desc {
+    background-color: #5193fc !important;
+    margin-left: 2rem !important;
+    color: #eee !important;
+    font-size: 1.2rem !important; 
+}
+
+.container-input-fields {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    left: 50%;
+    transform: translate(-50%);
+    position: relative;
+}
+
+.title-input {
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.description-input {
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.btn__submit:link {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 1.6rem;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    margin-bottom: 6rem;
+
+    border: none;
+    cursor: pointer;
+}
+
+.btn__submit:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 1.6rem;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    margin-bottom: 6rem;
+
+    border: none;
+    cursor: pointer;
+}
+
+.btn__submit:hover {
+    background-color: #2e7eff;
+    box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+}
+
+.btn__submit:hover::after {
+    background-color: #2e7eff;
+    opacity: 0;
+}
+
+.btn__submit:active {
+    outline: none;
+    background-color: #6fa6fc;
+    box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
+}
+
+.btn__submit:focus {
+    outline: none;
+    background-color: #6fa6fc;
+    box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
+}
+
+.btn__submit--white {
+    color: #eee;
+    background-color: #5193fc;
+}
+
+.btn__submit--white::after {
+    color: #eee;
+    background-color: #5193fc
+}
+
+@media (max-width: 82em) {
+    .create--ingredient-col-1 {
+        width: calc((100% - 11rem) / 2);
+    }
+}
+
+@media (max-width: 74em) {
+    .create--ingredient-col-1 {
+        width: calc((100% - 9rem) / 2);
+    }
+}
+
+@media (max-width: 64em) {
+    .create--ingredient-col-1 {
+        width: calc((100% - 7rem) / 2);
+    }
+
+    .p--ingredient {
+        font-size: 1.4rem;
+        padding-left: 1.8rem;
+    }
+
+    .heading--ingredients {
+        font-size: 2.2rem;
+    }
+
+    .divider__create {
+        width: 4px;
+    }
+}
+
+@media (max-width: 56.25em) {
+    .divider__create {
+        width: 0;
+    }
+    .p--ingredient {
+        margin: 1.4rem 5rem 0 5rem;
+    }
+
+    .create--ingredient-col-1 {
+        text-align: center;
+    }
+    
+    .create--ingredient-col-2 {
+        text-align: center;
+    }
+
+    .btn-remove--box {
+        margin-right: 1.5rem !important;
+    }
+
+    .btn-add--title {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+    }
+
+    .btn-add--desc {
+        margin-left: 1.5rem !important;
+    }
+}
+
+@media (max-width: 36.5em) {
+    .p--ingredient {
+        margin: 1.4rem 4rem 0 4rem;
+    }
+
+    .container__dish--information {
+        padding-top: 9rem;
+    }
+
+    .container__create--ingredients {
+        padding-top: 9rem;
+    }
+
+    .container__create--instructions {
+        padding-top: 9rem;
+    }
+    
+    .btn-remove--box {
+        margin-right: 1rem !important;
+        font-size: 1rem !important;
+    }
+
+    .btn-add--title {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+        font-size: 1rem !important;
+    }
+
+    .btn-add--desc {
+        margin-left: 1rem !important;
+        font-size: 1rem !important;
+    }
+}
+
+@media (max-width: 30em) {
+    .container__create {
+        width: 100vw;
+        background-color: rgba(235,235,235, .5);
+    }
+
+    .container__dish--information {
+        padding-top: 6rem;
+    }
+
+    .container__create--ingredients {
+        padding-top: 6rem;
+    }
+
+    .container__create--instructions {
+        padding-top: 6rem;
+    }
+}
+
+@media (max-width: 24em) {
+    .p--ingredient {
+        margin: 1.4rem 3rem 0 3rem;
+    }
+}

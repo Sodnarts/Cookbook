@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "sodnarts-react"
+  },
+  "targets": {
+    "sodnarts-react": {
+      "hosting": {
+        "prod": [
+          "sodnarts-recipes"
+        ],
+        "test": [
+          "sodnarts-recipes-test"
+        ]
+      }
+    }
+  }
+}
