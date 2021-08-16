@@ -49,15 +49,15 @@ class ReadRecipeBase extends React.Component<IReadRecipe, IState> {
 
     public renderInstructions() {
         console.log("OUTSIDE IF: ", this.state.currentRecipe);
-        if (!!this.state.currentRecipe && !!this.state.currentRecipe != undefined) {
+        if (!!this.state.currentRecipe && !!this.state.currentRecipe !== undefined) {
             const instructions: JSX.Element[] = [];
 
             console.log("TESTING: ", this.state.currentRecipe)
-            this.state.currentRecipe.instructions.titles.map((t: ITitle, i: number) => {
+            this.state.currentRecipe.instructions.titles.forEach((t: ITitle, i: number) => {
                 instructions[Number(t.key)] = <h1 key={`title-${i}`} className="instruction__title">{t.value}</h1>
             })
 
-            this.state.currentRecipe.instructions.descriptions.map((d: IDescription, i: number) => {
+            this.state.currentRecipe.instructions.descriptions.forEach((d: IDescription, i: number) => {
                 instructions[Number(d.key)] = <p key={`description-${i}`} className="instruction__description">{d.value}</p>
             })
 

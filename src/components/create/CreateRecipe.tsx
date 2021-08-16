@@ -232,7 +232,7 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         console.log("Submitting")
 
         const ingredientList: Ingredient[] = [];
-        this.state.ingredientList.map((i: any) => {
+        this.state.ingredientList.forEach((i: string[]) => {
             const ingredient: Ingredient = {
                 ingredient: i[2],
                 volume: i[0] + i[1],
@@ -318,9 +318,9 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         for (let i = 0; i < amountOfInputBoxes.length; i++) {
             const char = amountOfInputBoxes.substring(i, i + 1);
 
-            if (char == 't') {
+            if (char === 't') {
                 inputBoxList.push(this.renderTitleInput(i))
-            } else if (char == 'd') {
+            } else if (char === 'd') {
                 inputBoxList.push(this.renderDescriptionInput(i))
             }
         }

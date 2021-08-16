@@ -1,5 +1,4 @@
-import { AppBar, Button, createStyles, Theme, Toolbar, Typography, withStyles } from '@material-ui/core';
-import { WithStyles } from '@material-ui/styles';
+import { AppBar, createStyles, Theme, Toolbar, withStyles } from '@material-ui/core';
 import React from 'react';
 import { getLanguageFile } from 'src/common/internationalization/lang';
 import './Header.styles.css';
@@ -18,7 +17,7 @@ class HeaderBase extends React.Component<any> {
                     <Link to={routes.recipes.recipeList} className="heading-secondary">
                         {this.lang.cookbook}
                     </Link>
-                    <img className={classes.backgroundImg} src="./assets/header.jpg" />
+                    <img className={classes.backgroundImg} src="./assets/header.jpg"  alt="Header background"/>
                 </Toolbar>
             </AppBar>
         );

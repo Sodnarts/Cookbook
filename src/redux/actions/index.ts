@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { CREATE_RECIPE, DELETE_RECIPE, EDIT_RECIPE, FETCH_CURRENT_RECIPE, FETCH_RECIPE_LIST, TOGGLE_PROGRESS_BAR } from 'src/redux/types';
-import { IFetchCurrentRecipeAction, IFetchRecipesAction, IToggleProgressBarAction } from 'src/redux/actions/IActions';
+import { FETCH_CURRENT_RECIPE, FETCH_RECIPE_LIST, TOGGLE_PROGRESS_BAR } from 'src/redux/types';
+import { ICreateRecipeAction, IDeleteRecipeAction, IEditRecipeAction, IFetchCurrentRecipeAction, IFetchRecipesAction, IToggleProgressBarAction } from 'src/redux/actions/IActions';
 import { routes } from 'src/common/routes/routes';
 import { IRecipe } from 'src/redux/reducers/IState';
 
@@ -25,7 +25,7 @@ export const getCurrentRecipe = (_id: string) => async (dispatch: Dispatch<ITogg
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: false })
 }
 
-export const createRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<any>) => {
+export const createRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<IToggleProgressBarAction | ICreateRecipeAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: true });
     const response = await axios.post(routes.api.newRecipe, { recipe })
 
@@ -33,7 +33,7 @@ export const createRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<any>)
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: false })
 }
 
-export const editRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<any>) => {
+export const editRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<IToggleProgressBarAction | IEditRecipeAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: true });
     const response = await axios.post(routes.api.editRecipe, { recipe })
 
@@ -41,7 +41,7 @@ export const editRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<any>) =
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: false })
 }
 
-export const deleteRecipe = (_id: string) => async (dispatch: Dispatch<any>) => {
+export const deleteRecipe = (_id: string) => async (dispatch: Dispatch<IToggleProgressBarAction | IDeleteRecipeAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: true });
     console.log("ID: ", _id);
     const response = await axios.post(routes.api.deleteRecipe, { _id })

@@ -5,8 +5,6 @@ import { createStyles, Theme, withStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import React from 'react';
 import { CreateInformation } from 'src/components/create/CreateInformation';
@@ -149,7 +147,7 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
 
             // Building the correct ingredient list format
             const ing: string[][] = [];
-            c.ingredients.map((i: Ingredient) => {
+            c.ingredients.forEach((i: Ingredient) => {
                 let tmpIng: string[] = [];
                 tmpIng[2] = i.ingredient;
                 let tmpUnit = "";
@@ -175,18 +173,18 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
             const descriptionList: string[] = [];
 
             const amountOfBoxArr: string[] = [];
-            c.instructions.titles.map((t: ITitle) => {
+            c.instructions.titles.forEach((t: ITitle) => {
                 titleList[Number(t.key)] = t.value;
                 amountOfBoxArr[Number(t.key)] = "t";
             })
 
-            c.instructions.descriptions.map((d: IDescription) => {
+            c.instructions.descriptions.forEach((d: IDescription) => {
                 descriptionList[Number(d.key)] = d.value;
                 amountOfBoxArr[Number(d.key)] = "d";
             })
 
             let amountOfBox = ""
-            amountOfBoxArr.map((a: string) => {
+            amountOfBoxArr.forEach((a: string) => {
                 amountOfBox += a;
             })
 
@@ -330,7 +328,7 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
         // TODO: When adding Title / Descriptions. Loop over "AmountOfBoxes", filter on "t" and "d", then take out only the first values that correspond to this.
 
         const ingredientList: Ingredient[] = [];
-        this.state.ingredientList.map((i: any) => {
+        this.state.ingredientList.forEach((i: any) => {
             const ingredient: Ingredient = {
                 ingredient: i[2],
                 volume: i[0] + i[1],
@@ -455,9 +453,9 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
         for (let i = 0; i < amountOfInputBoxes.length; i++) {
             const char = amountOfInputBoxes.substring(i, i + 1);
 
-            if (char == 't') {
+            if (char === 't') {
                 inputBoxList.push(this.renderTitleInput(i))
-            } else if (char == 'd') {
+            } else if (char === 'd') {
                 inputBoxList.push(this.renderDescriptionInput(i))
             }
         }

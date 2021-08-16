@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { routes } from 'src/common/routes/routes';
 import { IRecipe, IRootState } from 'src/redux/reducers/IState';
@@ -118,13 +117,14 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
             <div className="container">
                 <div className="container__card">
                     {recipeList.map((r: IRecipe, i: number) => {
-                        if (i % 3 == 0) {
+                        if (i % 3 === 0) {
                             let tmpRL = [];
                             if (!!recipeList[i]) tmpRL.push(recipeList[i])
                             if (!!recipeList[i + 1]) tmpRL.push(recipeList[i + 1])
                             if (!!recipeList[i + 2]) tmpRL.push(recipeList[i + 2])
                             return this.renderCard(tmpRL, i);
                         }
+                        return undefined;
                     })}
                 </div>
                 <Link to={routes.recipes.createRecipe} className="action-button-container">
