@@ -1,4 +1,4 @@
-import { AppBar, Button, createStyles, Theme, Toolbar, withStyles } from '@material-ui/core';
+import { AppBar, createStyles, Theme, Toolbar, withStyles } from '@material-ui/core';
 import React from 'react';
 import { getLanguageFile } from 'src/common/internationalization/lang';
 import './Header.styles.css';
