@@ -5,7 +5,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-import './CreateIngredient.styles.css';
+import 'src/components/ingredient/IngredientInput.styles.css';
+import { getLanguageFile } from 'src/common/internationalization/lang';
+import { UnitTypes } from 'src/redux/reducers/IState';
+import { IUnitType, unitTypesList } from 'src/common/utils/UnitTypesConfig';
 
 interface IProps {
     setUnit(unit: UnitTypes, i: number): void;
@@ -16,12 +19,6 @@ interface IProps {
     defaultName?: string;
     defaultAmount?: string;
     defaultUnit?: string;
-}
-
-export enum UnitTypes {
-    Millilitres = "ml",
-    Grams = "g",
-    Pieces = "pcs"
 }
 
 const styles = (theme: Theme) =>
@@ -36,6 +33,20 @@ const styles = (theme: Theme) =>
             },
         },
         label: {
+            backgroundColor: '#e4e2e1',
+            fontSize: 18,
+            paddingRight: '4px',
+            [theme.breakpoints.down(900)]: {
+                fontSize: 16,
+            },
+            [theme.breakpoints.down(576)]: {
+                fontSize: 14,
+            },
+            [theme.breakpoints.down(480)]: {
+                backgroundColor: '#d0cece',
+            },
+        },
+        focusedLabel: {
             fontSize: 18,
             [theme.breakpoints.down(900)]: {
                 fontSize: 16,
@@ -43,14 +54,13 @@ const styles = (theme: Theme) =>
             [theme.breakpoints.down(576)]: {
                 fontSize: 14,
             },
-        },
-        focusedLabel: {
-            fontSize: 12,
         }
     })
 
 
-const CreateIngredientBase = (props: IProps) => {
+const IngredientInputBase = (props: IProps) => {
+    const lang = getLanguageFile();
+
     const [unit, updateUnit] = React.useState(!!props.defaultUnit ? props.defaultUnit : "");
 
     const handleChangeUnit = (event: any) => {
@@ -69,7 +79,7 @@ const CreateIngredientBase = (props: IProps) => {
     const renderSelector = () => {
         return (
             <FormControl className="selector-input">
-                <InputLabel id={`demo-simple-select-label-${props.index}`} className="input-label">Unit</InputLabel>
+                <InputLabel id={`demo-simple-select-label-${props.index}`} className="input-label">{lang.unit}</InputLabel>
                 <Select
                     className="selector-element"
 
@@ -78,9 +88,9 @@ const CreateIngredientBase = (props: IProps) => {
                     value={unit}
                     onChange={handleChangeUnit}
                 >
-                    <MenuItem value={UnitTypes.Millilitres} className="menu-item">Millilitres</MenuItem>
-                    <MenuItem value={UnitTypes.Grams} className="menu-item">Grams</MenuItem>
-                    <MenuItem value={UnitTypes.Pieces} className="menu-item">Pieces</MenuItem>
+                    {unitTypesList.map((ut: IUnitType) => {
+                            return <MenuItem key={`menu-item-${ut.value}`} value={ut.value} className="menu-item">{ut.label}</MenuItem>
+                    })}
                 </Select>
             </FormControl>
         )
@@ -92,7 +102,7 @@ const CreateIngredientBase = (props: IProps) => {
             <form noValidate autoComplete="off" className="amount-input">
                 <TextField id={`standard-amount-${props.index}`}
                     onChange={handleChangeAmount}
-                    label="Amount" size="medium"
+                    label={lang.amount} size="medium"
                     InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
                     defaultValue={props.defaultAmount}
                     InputProps={{
@@ -110,7 +120,7 @@ const CreateIngredientBase = (props: IProps) => {
             <form noValidate autoComplete="off" className="name-input">
                 <TextField id={`standard-name-${props.index}`}
                     onChange={handleChangeName}
-                    label="Ingredient" className="name-field"
+                    label={lang.ingredient}className="name-field"
                     InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
                     defaultValue={props.defaultName}
                     InputProps={{
@@ -130,5 +140,5 @@ const CreateIngredientBase = (props: IProps) => {
     )
 }
 
-const CreateIngredient = (withStyles(styles)(CreateIngredientBase));
-export { CreateIngredient };
+const IngredientInput = (withStyles(styles)(IngredientInputBase));
+export { IngredientInput };

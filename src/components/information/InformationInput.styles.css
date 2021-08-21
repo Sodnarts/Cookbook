@@ -9,16 +9,15 @@
     border: 3px solid #555;
     padding-bottom: 1rem;
     padding-top: 1rem;
-    margin-top:1rem;
+    margin-top: 1rem;
     margin-bottom: 3rem;
     border-radius: 1rem;
-    padding-right: 3rem;
 }
 
 .selector-info-input {
-    margin-right: 3rem;
-    margin-left: 3rem;
     top: 1px;
+    width: 25%;
+    margin-right: 3rem !important;
 }
 
 .prep-min-input {
@@ -39,7 +38,6 @@
 .selector-info-element {
     font-size: 1.6rem !important;
     border: 0;
-    margin-left: -1rem;
     top: 5px;
 }
 
@@ -59,26 +57,25 @@
         padding-right: 0;
     }
 
-
     .selector-info-input {
-        margin: 2rem 0 2rem 0;
         width: 97% !important;
-        margin: 0;
         padding: 0;
         position: relative;
+        margin-right: 0 !important;
+        margin-left: -1rem;
         top: 0px;
     }
-    
+
     .prep-min-input {
         margin: 2rem 0 2rem 0;
         width: 100%;
     }
-    
+
     .prep-max-input {
         margin: 2rem 0 2rem 0;
         width: 100%;
     }
-    
+
     .portions-input {
         margin: 2rem 0 2rem 0;
         width: 100%;
@@ -88,16 +85,17 @@
         font-size: 1.4rem !important;
         border: 3px solid #555;
         border-radius: 1rem;
+        padding-left: 1rem;
         padding-top: 1rem;
         padding-bottom: 1rem;
         margin-left: -1rem;
         margin-right: -1rem;
     }
-    
+
     .menu-item {
         font-size: 1.4rem !important;
     }
-    
+
     .input-label {
         font-size: 1.6rem !important;
     }

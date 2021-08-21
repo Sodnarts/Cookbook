@@ -1,8 +1,8 @@
 .card {
-perspective: 150rem;
--moz-perspective: 150rem;
-position: relative;
-height: 52rem; 
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 52rem;
 }
 
 .card__side {
@@ -16,32 +16,35 @@ height: 52rem;
     overflow: hidden;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; 
+    backface-visibility: hidden;
 }
 
 .card__side--front {
-    background-color: #fff; 
+    background-color: #fff;
 }
 
 .card__side--back {
-    transform: rotateY(180deg); 
+    transform: rotateY(180deg);
     display: flex;
 }
 
 .card__side--back-1 {
-    background-image: linear-gradient(to right bottom, #ffb900, #ff7730); 
+    background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
 }
 .card__side--back-2 {
-    background-image: linear-gradient(to right bottom, #7ed56f, #28b485); 
+    background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
 }
 .card__side--back-3 {
-    background-image: linear-gradient(to right bottom, #2998ff, #5643fa); 
+    background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
+}
+.card__side--back-4 {
+    background-image: linear-gradient(to right bottom, #bbb, #555);
 }
 .card:hover .card__side--front {
-    transform: rotateY(-180deg); 
+    transform: rotateY(-180deg);
 }
 .card:hover .card__side--back {
-    transform: rotateY(0); 
+    transform: rotateY(0);
 }
 .card__picture {
     background-size: cover;
@@ -50,16 +53,19 @@ height: 52rem;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     border-top-left-radius: 3px;
-    border-top-right-radius: 3px; 
+    border-top-right-radius: 3px;
 }
 .card__picture--1 {
-    background-image: linear-gradient(to right bottom, #ffb900, #ff7730), url(./nat-5.jpg); 
+    background-image: linear-gradient(to right bottom, #ffb900, #ff7730), url(./nat-5.jpg);
 }
 .card__picture--2 {
-    background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url(./nat-6.jpg); 
+    background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url(./nat-6.jpg);
 }
 .card__picture--3 {
-    background-image: linear-gradient(to right bottom, #2998ff, #5643fa), url(./nat-7.jpg); 
+    background-image: linear-gradient(to right bottom, #2998ff, #5643fa), url(./nat-7.jpg);
+}
+.card__picture--4 {
+    background-image: linear-gradient(to right bottom, #bbb, #555), url(./nat-7.jpg);
 }
 .card__heading {
     font-size: 2.8rem;
@@ -70,38 +76,38 @@ height: 52rem;
     position: absolute;
     top: 12rem;
     right: 2rem;
-    width: 60%; 
+    width: 60%;
 }
 .card__heading-span {
     padding: 1rem 1.5rem;
     -webkit-box-decoration-break: clone;
-    box-decoration-break: clone; 
+    box-decoration-break: clone;
 }
 .card__heading-span--1 {
-    background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85)); 
+    background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85));
 }
 .card__heading-span--2 {
-    background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.85), rgba(40, 180, 133, 0.85)); 
+    background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.85), rgba(40, 180, 133, 0.85));
 }
 .card__heading-span--3 {
-    background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85)); 
+    background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85));
 }
 .card__details {
-    padding: 3rem; 
+    padding: 3rem;
     justify-content: center;
 }
 .card__details ul {
     list-style: none;
     width: 80%;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 .card__details ul li {
     text-align: center;
     font-size: 1.5rem;
-    padding: 1rem; 
+    padding: 1rem;
 }
 .card__details ul li:not(:last-child) {
-    border-bottom: 1px solid #eee; 
+    border-bottom: 1px solid #eee;
 }
 .card__cta {
     position: absolute;
@@ -109,41 +115,42 @@ height: 52rem;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    text-align: center; 
+    text-align: center;
 }
 .card__price-box {
     margin-bottom: 8rem;
-    color: #fff; 
+    color: #fff;
 }
 .card__price-only {
     font-size: 1.4rem;
-    text-transform: uppercase; 
+    text-transform: uppercase;
 }
 .card__price_value {
     font-size: 6rem;
-    font-weight: 100; }
+    font-weight: 100;
+}
 
 @media (max-width: 56.25em) {
     .card {
         height: auto;
         border-radius: 3px;
         background-color: #fff;
-        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); 
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
     }
     .card__side {
         height: auto;
         position: relative;
-        box-shadow: none; 
+        box-shadow: none;
     }
     .card__side--back {
         transform: rotateY(0);
-        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); 
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
     }
     .card:hover .card__side--front {
-        transform: rotateY(0); 
+        transform: rotateY(0);
     }
     .card__details {
-        padding: 1rem 3rem; 
+        padding: 1rem 3rem;
     }
     .card__cta {
         position: relative;
@@ -151,63 +158,62 @@ height: 52rem;
         left: 0;
         transform: translate(0);
         width: 100%;
-        padding: 7rem 4rem 4rem 4rem; 
+        padding: 7rem 4rem 4rem 4rem;
     }
     .card__price-box {
-        margin-bottom: 3rem; 
+        margin-bottom: 3rem;
     }
     .card__price_value {
-        font-size: 4rem; 
-    } 
+        font-size: 4rem;
+    }
 }
-
 
 .row {
     max-width: 114rem;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .row:not(:last-child) {
-    margin-bottom: 8rem; 
+    margin-bottom: 8rem;
 }
 
 @media (max-width: 56.25em) {
     .row:not(:last-child) {
-        margin-bottom: 6rem; 
+        margin-bottom: 6rem;
     }
 }
 
 @media (max-width: 56.25em) {
     .row {
         max-width: 50rem;
-        padding: 0 0rem; 
+        padding: 0 0rem;
     }
 }
 
 .row::after {
     content: '';
     display: table;
-    clear: both; 
+    clear: both;
 }
 
 .row [class^='col-'] {
-    float: left; 
+    float: left;
 }
 
 .row [class^='col-']:not(:last-child) {
-    margin-right: 6rem; 
+    margin-right: 6rem;
 }
 
 @media (max-width: 56.25em) {
     .row [class^='col-']:not(:last-child) {
         margin-right: 0;
-        margin-bottom: 6rem; 
+        margin-bottom: 6rem;
     }
 }
 
 @media (max-width: 56.25em) {
     .row [class^='col-'] {
-        width: 100% !important; 
+        width: 100% !important;
     }
 }
 
@@ -216,43 +222,41 @@ height: 52rem;
 }
 
 .row .col-1-of-3 {
-    width: calc((100% - 2 * 6rem) / 3); 
+    width: calc((100% - 2 * 6rem) / 3);
     margin-top: 6rem;
 }
 
 .btn:link {
     text-transform: uppercase;
-        text-decoration: none;
-        padding: 1.5rem 4rem;
-        display: inline-block;
-        border-radius: 100px;
-        transition: all 0.2s;
-        position: relative;
-        font-size: 1.6rem;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 1.6rem;
 
-        border: none;
-        cursor: pointer;
+    border: none;
+    cursor: pointer;
 }
 
 .btn:visited {
     text-transform: uppercase;
-        text-decoration: none;
-        padding: 1.5rem 4rem;
-        display: inline-block;
-        border-radius: 100px;
-        transition: all 0.2s;
-        position: relative;
-        font-size: 1.6rem;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 1.6rem;
 
-        border: none;
-        cursor: pointer;
+    border: none;
+    cursor: pointer;
 }
 
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 1rem 2rem rgba(#000, 0.2);
-
-    
 }
 .btn:hover::after {
     transform: scaleX(1.4) scaleY(1.6);
@@ -277,7 +281,7 @@ height: 52rem;
 }
 
 .btn--white::after {
-    background-color: #fff
+    background-color: #fff;
 }
 
 .container {
@@ -288,7 +292,7 @@ height: 52rem;
 .container__card {
     width: 80vw;
     min-height: 80vh;
-    background-color: rgba(235,235,235, .8);
+    background-color: rgba(235, 235, 235, 0.8);
     z-index: 1000;
     border-radius: 1.2rem;
     position: absolute;
@@ -308,5 +312,4 @@ height: 52rem;
         margin-top: 4.5rem;
         padding-bottom: 3rem;
     }
-
 }

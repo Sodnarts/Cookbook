@@ -1,0 +1,50 @@
+.add-icon {
+    height: 32px !important;
+    width: 32px !important;
+}
+
+.action-button-container {
+    position: fixed !important;
+    z-index: 1025;
+}
+
+.add-icon-add {
+    position: relative;
+}
+
+.add-icon-add,
+.add-icon-add::after {
+    width: 3rem;
+    height: 3px;
+    background-color: #eee;
+    display: inline-block;
+    transition: all 0.4s;
+}
+
+.add-icon-add::after {
+    content: '';
+    position: absolute;
+    left: 0;
+}
+
+.add-icon-add::after {
+    transform: rotate(90deg);
+}
+
+.action-button-add:hover .add-icon-add {
+    transform: rotate(90deg);
+    width: 3.2rem;
+    background-color: #fff;
+}
+
+.action-button-add:hover .add-icon-add::after {
+    transform: rotate(-90deg);
+    background-color: #fff;
+    width: 3.2rem;
+}
+
+@media (max-width: 36em) {
+    .action-button-container {
+        visibility: hidden;
+    }
+}

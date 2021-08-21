@@ -1,9 +1,0 @@
-.add-icon {
-    height: 32px !important;
-    width: 32px !important;
-}
-
-.action-button-container {
-    position: fixed !important;
-    z-index: 10000;
-}

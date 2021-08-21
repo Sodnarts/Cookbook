@@ -1,17 +1,20 @@
-import { Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import { createStyles, Theme, withStyles } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import React from 'react';
-import { CreateInformation } from 'src/components/create/CreateInformation';
-import { CreateIngredient, UnitTypes } from 'src/components/create/CreateIngredient';
-import './CreateRecipe.styles.css';
-import { FoodCategory, IDescription, Ingredient, Instructions, IRecipe, ITitle } from 'src/redux/reducers/IState';
-import { routes } from 'src/common/routes/routes';
-import { Link } from 'react-router-dom';
+import 'src/pages/recipe-create/CreateRecipe.styles.css';
 import * as actions from 'src/redux/actions';
+import AddIcon from '@material-ui/icons/Add';
+import React from 'react';
+import RemoveIcon from '@material-ui/icons/Remove';
+import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
+import { FoodCategory, IDescription, Ingredient, Instructions, IRecipe, ITitle, UnitTypes } from 'src/redux/reducers/IState';
+import { InformationInput } from 'src/components/information/InformationInput';
+import { IngredientInput } from 'src/components/ingredient/IngredientInput';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStyles, Theme, withStyles } from '@material-ui/core';
+import { getLanguageFile } from 'src/common/internationalization/lang';
+import { routes } from 'src/common/routes/routes';
+import { SubCategoryInput } from 'src/components/sub-category/SubCategoryInput';
+import { ISubCategory, subCategoryList } from 'src/common/utils/SubCategoryConfig';
 
 interface IState {
     dishName: string;
@@ -19,6 +22,8 @@ interface IState {
     prepTimeMax: string;
     portions: string;
     foodCategory: string;
+
+    subCategoryList: ISubCategory[];
 
     ingredientList: string[][];
     amountOfIngredients: number;
@@ -32,6 +37,7 @@ interface IProps {
     match: any;
     classes: any;
     createRecipe(recipe: IRecipe): void;
+    getCurrentPathName(pathName: string): void;
 }
 
 type ICreateRecipe = IProps;
@@ -65,6 +71,20 @@ const styles = (theme: Theme) =>
             },
         },
         label: {
+            backgroundColor: '#e4e2e1',
+            fontSize: 20,
+            paddingRight: '4px',
+            [theme.breakpoints.down(900)]: {
+                fontSize: 18,
+            },
+            [theme.breakpoints.down(576)]: {
+                fontSize: 16,
+            },
+            [theme.breakpoints.down(480)]: {
+                backgroundColor: '#d0cece',
+            },
+        },
+        focusedLabel: {
             fontSize: 20,
             [theme.breakpoints.down(900)]: {
                 fontSize: 18,
@@ -73,12 +93,16 @@ const styles = (theme: Theme) =>
                 fontSize: 16,
             },
         },
-        focusedLabel: {
-            fontSize: 12,
+        lineHeight :{
+            lineHeight: '2rem',
+            [theme.breakpoints.down(576)]: {
+                lineHeight: '1.8rem',
+            },
         }
     })
 
 class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
+    private lang = getLanguageFile();
     constructor(props: ICreateRecipe) {
         super(props);
 
@@ -88,6 +112,8 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
             prepTimeMax: "",
             portions: "",
             foodCategory: "",
+
+            subCategoryList: [],
 
             ingredientList: [["", "", ""]],
             amountOfIngredients: 1,
@@ -105,6 +131,7 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         this.setUnit = this.setUnit.bind(this);
         this.setAmount = this.setAmount.bind(this);
         this.setName = this.setName.bind(this);
+        this.setSubCategories = this.setSubCategories.bind(this);
         this.addIngredient = this.addIngredient.bind(this);
         this.removeIngredient = this.removeIngredient.bind(this);
         this.addTitle = this.addTitle.bind(this);
@@ -113,32 +140,36 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    public componentDidMount() {
+        this.props.getCurrentPathName(this.props.match.path)
+    }
+
     public setDishName(event: any) {
-        this.setState({ dishName: event.target.value }, () => console.log(this.state))
+        this.setState({ dishName: event.target.value })
     }
 
     public setPrepTimeMin(prepTime: string) {
         this.setState({
             prepTimeMin: prepTime,
-        }, () => console.log(this.state))
+        })
     }
 
     public setPrepTimeMax(prepTime: string) {
         this.setState({
             prepTimeMax: prepTime,
-        }, () => console.log(this.state))
+        })
     }
 
     public setPortions(portions: string) {
         this.setState({
             portions,
-        }, () => console.log(this.state))
+        })
     }
 
     public setFoodCategory(foodCategory: FoodCategory) {
         this.setState({
             foodCategory,
-        }, () => console.log(this.state))
+        })
     }
 
     public setUnit(unit: UnitTypes, i: number) {
@@ -180,6 +211,12 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
 
         this.setState({
             approachDescriptionList: tmpDL,
+        })
+    }
+
+    public setSubCategories(subCategories: ISubCategory[]): void {
+        this.setState({
+            subCategoryList: subCategories,
         })
     }
 
@@ -229,8 +266,6 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
     }
 
     public handleSubmit() {
-        console.log("Submitting")
-
         const ingredientList: Ingredient[] = [];
         this.state.ingredientList.forEach((i: string[]) => {
             const ingredient: Ingredient = {
@@ -264,10 +299,11 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
             prepTimeMax: this.state.prepTimeMax,
             prepTimeMin: this.state.prepTimeMin,
             portions: this.state.portions,
+            subCategories: this.state.subCategoryList,
             type: !!this.state.foodCategory ? this.state.foodCategory as FoodCategory : FoodCategory.Dinner,
             timeCreated: Date.now(),
         }
-        console.log(recipe)
+
         this.props.createRecipe(recipe);
     }
 
@@ -276,7 +312,7 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         let ingredientInputList: JSX.Element[] = [];
 
         for (let i = 0; i < amountOfIngredients; i++) {
-            ingredientInputList.push(<CreateIngredient key={i} setUnit={this.setUnit} setAmount={this.setAmount} setName={this.setName} index={i} />)
+            ingredientInputList.push(<IngredientInput key={i} setUnit={this.setUnit} setAmount={this.setAmount} setName={this.setName} index={i} />)
         }
 
         return ingredientInputList;
@@ -285,8 +321,8 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
     public renderTitleInput(key: number) {
         const { classes } = this.props;
 
-        return <form noValidate autoComplete="off" className="title-input">
-            <TextField key={`title-input-${key}`} label="Step" variant="outlined"
+        return <form key={`title-input-${key}`} noValidate autoComplete="off" className="title-input">
+            <TextField label={this.lang.step} variant="outlined"
                 style={{ width: '100%' }}
                 onChange={(e) => this.setTitle(e, key)}
                 InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
@@ -297,17 +333,16 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
     public renderDescriptionInput(key: number) {
         const { classes } = this.props;
 
-        return <form noValidate autoComplete="off" className="description-input">
+        return <form noValidate key={`description-input-${key}`} autoComplete="off" className="description-input">
             <TextField
-                key={`description-input-${key}`}
-                label="Approach&nbsp;"
+                label={this.lang.approach}
                 style={{ width: '100%' }}
                 multiline
                 rows={6}
                 variant="outlined"
                 onChange={(e) => this.setDescription(e, key)}
                 InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
-                InputProps={{ classes: { input: classes.resize, notchedOutline: classes.outline, } }} />
+                InputProps={{ classes: { input: classes.resize, notchedOutline: classes.outline, root: classes.lineHeight } }} />
         </form>
     }
 
@@ -335,9 +370,9 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         return (
             <div className="container__create">
                 <div className="container__dish--name">
-                    <h2 className="heading--create">Name of the dish</h2>
+                    <h2 className="heading--create">{this.lang.dishName}</h2>
                     <form noValidate autoComplete="off" className="dish-name-input">
-                        <TextField key="dish-name-input" label="Name&nbsp;" variant="outlined"
+                        <TextField key="dish-name-input" label={this.lang.name} variant="outlined"
                             style={{ width: '100%' }}
                             onChange={this.setDishName}
                             InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
@@ -345,11 +380,15 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
                     </form>
                 </div>
                 <div className="container__dish--information">
-                    <h2 className="heading--create">Information</h2>
-                    <CreateInformation key={1} setPrepTimeMin={this.setPrepTimeMin} setPrepTimeMax={this.setPrepTimeMax} setPortions={this.setPortions} setCategory={this.setFoodCategory} index={1} />
+                    <h2 className="heading--create">{this.lang.information}</h2>
+                    <InformationInput key={1} setPrepTimeMin={this.setPrepTimeMin} setPrepTimeMax={this.setPrepTimeMax} setPortions={this.setPortions} setCategory={this.setFoodCategory} index={1} />
+                </div>
+                <div className="container_create--sub-category">
+                    <h2 className="heading--create">{this.lang.subCategories}</h2>
+                    <SubCategoryInput setSubCategories={this.setSubCategories} categoryList={subCategoryList} selectedCategories={[]}/>
                 </div>
                 <div className="container__create--ingredients">
-                    <h2 className="heading--create">Ingredients</h2>
+                    <h2 className="heading--create">{this.lang.ingredients}</h2>
                     <div className="container__create--ingredients--row">
                         {this.renderIngredientInput().map((il: JSX.Element) => {
                             return il;
@@ -361,20 +400,20 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
                     </div>
                 </div>
                 <div className="container__create--instructions">
-                    <h2 className="heading--create">Instructions</h2>
+                    <h2 className="heading--create">{this.lang.instructions}</h2>
                     <div className="container-input-fields">
                         {this.renderInputBoxes().map((tl: JSX.Element) => {
                             return tl;
                         })}
                     </div>
                     <div className="btn-container">
-                        {amountOfInputBoxes.length > 2 ? <Button variant="contained" className="btn-remove--box" onClick={this.removeBox}>Remove&nbsp;<RemoveIcon style={{ height: '24px', width: '24px', color: '#eee' }} /></Button> : undefined}
-                        <Button variant="contained" className="btn-add--title" onClick={this.addTitle}>Title&nbsp;<AddIcon style={{ height: '24px', width: '24px', color: '#ddd' }} /></Button>
-                        <Button variant="contained" className="btn-add--desc" onClick={this.addDescription}>Description&nbsp;<AddIcon style={{ height: '24px', width: '24px', color: '#ddd' }} /></Button>
+                        {amountOfInputBoxes.length > 2 ? <Button variant="contained" className="btn-remove--box" onClick={this.removeBox}>{this.lang.remove}&nbsp;<RemoveIcon style={{ height: '24px', width: '24px', color: '#eee' }} /></Button> : undefined}
+                        <Button variant="contained" className="btn-add--title" onClick={this.addTitle}>{this.lang.step}&nbsp;<AddIcon style={{ height: '24px', width: '24px', color: '#ddd' }} /></Button>
+                        <Button variant="contained" className="btn-add--desc" onClick={this.addDescription}>{this.lang.approach}&nbsp;<AddIcon style={{ height: '24px', width: '24px', color: '#ddd' }} /></Button>
                     </div>
                 </div>
                 <div className="btn__submit--container">
-                    <Link to={routes.recipes.recipeList} className="btn__submit btn__submit--white" onClick={this.handleSubmit}>Submit</Link>
+                    <Link to={routes.recipes.recipeList} className="btn__submit btn__submit--white" onClick={this.handleSubmit}>{this.lang.submit}</Link>
                 </div>
             </div >
         )

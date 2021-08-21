@@ -1,0 +1,46 @@
+.drawer-container {
+    width: 25vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 9.6rem;
+    background-color: rgba(235, 235, 235, 1);
+}
+
+.drawer-selector-input {
+    top: 1px;
+    width: 80%;
+    margin-bottom: 3.2rem !important;
+}
+
+.drawer-selector-info {
+    font-size: 1.6rem !important;
+    border: 0;
+    margin-left: -1rem;
+    padding-left: 12px;
+    top: 5px;
+}
+
+.filter-title {
+    font-size: 2.4rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: normal;
+}
+
+.search-input {
+    width: 80%;
+    margin-bottom: 9.6rem;
+}
+
+@media (max-width: 56.25em) {
+    .drawer-container {
+        width: 30vw;
+    }
+}
+
+@media (max-width: 36em) {
+    .drawer-container {
+        width: 100vw;
+    }
+}

@@ -5,8 +5,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-import './CreateInformation.styles.css';
+import 'src/components/information/InformationInput.styles.css';
 import { FoodCategory } from 'src/redux/reducers/IState';
+import { getLanguageFile } from 'src/common/internationalization/lang';
+import { foodCategoryList, IFoodCategory } from 'src/common/utils/FoodCategoryConfig';
 
 interface IProps {
     setCategory(category: FoodCategory): void;
@@ -21,6 +23,11 @@ interface IProps {
     defaultCategory?: string;
 }
 
+export enum TextFieldTypes{
+    Standard = "standard",
+    Outlined = "outlined"
+}
+
 const styles = (theme: Theme) =>
     createStyles({
         resize: {
@@ -33,6 +40,20 @@ const styles = (theme: Theme) =>
             },
         },
         label: {
+            backgroundColor: '#e4e2e1',
+            fontSize: 18,
+            paddingRight: '4px',
+            [theme.breakpoints.down(900)]: {
+                fontSize: 16,
+            },
+            [theme.breakpoints.down(576)]: {
+                fontSize: 14,
+            },
+            [theme.breakpoints.down(480)]: {
+                backgroundColor: '#d0cece',
+            },
+        },
+        focusedLabel: {
             fontSize: 18,
             [theme.breakpoints.down(900)]: {
                 fontSize: 16,
@@ -41,45 +62,20 @@ const styles = (theme: Theme) =>
                 fontSize: 14,
             },
         },
-        focusedLabel: {
-            fontSize: 12,
-        },
-        cssOutlinedInput: {
-            '&$cssFocused $outline': {
-                borderWidth: 0,
-                borderColor: '#555',
-                borderRadius: 0,
-                borderBottom: '1px solid #555',
-                [theme.breakpoints.down(900)]: {
-                    borderWidth: '3px',
-                    borderColor: '#555',
-                    borderRadius: '1rem',
-                },
-                [theme.breakpoints.down(576)]: {
-                    borderWidth: '2px',
-                },
-            },
-        },
         outline: {
-            borderWidth: 0,
+            borderWidth: '3px',
             borderColor: '#555',
-            borderRadius: 0,
-            borderBottom: '1px solid #555',
-            [theme.breakpoints.down(900)]: {
-                borderWidth: '3px',
-                borderColor: '#555',
-                borderRadius: '1rem',
-            },
+            borderRadius: '1rem',
             [theme.breakpoints.down(576)]: {
                 borderWidth: '2px',
             },
         },
-        cssFocused: {
-        },
     })
 
 
-const CreateInformationBase = (props: IProps) => {
+const InformationInputBase = (props: IProps) => {
+    const lang = getLanguageFile();
+
     const [category, updateCategory] = React.useState(!!props.defaultCategory ? props.defaultCategory : "");
 
     const handleChangeCategory = (event: any) => {
@@ -102,7 +98,7 @@ const CreateInformationBase = (props: IProps) => {
     const renderSelector = () => {
         return (
             <FormControl className="selector-info-input">
-                <InputLabel id={`select-label-${props.index}`} className="input-label">Category</InputLabel>
+                <InputLabel id={`select-label-${props.index}`} className="input-label">{lang.mainCategory}</InputLabel>
                 <Select
                     className="selector-info-element"
                     labelId="select-label"
@@ -110,9 +106,9 @@ const CreateInformationBase = (props: IProps) => {
                     value={category}
                     onChange={handleChangeCategory}
                 >
-                    <MenuItem value={FoodCategory.Dinner} className="menu-item">Dinner</MenuItem>
-                    <MenuItem value={FoodCategory.Dessert} className="menu-item">Dessert</MenuItem>
-                    <MenuItem value={FoodCategory.Snack} className="menu-item">Snack</MenuItem>
+                    {foodCategoryList.map((fc: IFoodCategory) => {
+                            return <MenuItem key={`menu-item-${fc.value}`} value={fc.value} className="menu-item">{fc.label}</MenuItem>
+                    })}
                 </Select>
             </FormControl>
         )
@@ -120,69 +116,63 @@ const CreateInformationBase = (props: IProps) => {
 
     const renderPrepTimeMinInput = () => {
         const classes = props.classes;
+        var w = window.innerWidth;
+        const type: TextFieldTypes = !!(w <= 900) ? TextFieldTypes.Outlined : TextFieldTypes.Standard
+        const inputProps = !!(w <= 900) ? { classes: { input: classes.resize, notchedOutline: classes.outline}} : { classes:{input: classes.resize}}
+        const labelProps = !!(w <= 900) ? { classes: { root: classes.label, focused: classes.focusedLabel } } : { classes:{root: classes.label, focused: classes.focusedLabel}}
+        
         return (
             <form noValidate autoComplete="off" className="prep-min-input">
                 <TextField id={`standard-min-${props.index}`}
                     onChange={handleChangePrepTimeMin}
-                    label="Min time&nbsp;" size="medium"
+                    label={lang.minTime} size="medium"
                     style={{ width: '100%' }}
-                    InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
-                    variant="outlined"
+                    InputLabelProps={labelProps}
+                    variant={type}
                     defaultValue={props.defaultMinTime}
-                    InputProps={{
-                        classes: {
-                            input: classes.resize,
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.outline,
-                        },
-                    }} />
+                    InputProps={inputProps} />
             </form>
         )
     }
 
     const renderPrepTimeMaxInput = () => {
         const classes = props.classes;
+        var w = window.innerWidth;
+        const type: TextFieldTypes = !!(w <= 900) ? TextFieldTypes.Outlined : TextFieldTypes.Standard
+        const inputProps = !!(w <= 900) ? { classes: { input: classes.resize, notchedOutline: classes.outline}} : { classes:{input: classes.resize}}
+        const labelProps = !!(w <= 900) ? { classes: { root: classes.label, focused: classes.focusedLabel } } : { classes:{root: classes.label, focused: classes.focusedLabel}}
+        
         return (
             <form noValidate autoComplete="off" className="prep-max-input">
                 <TextField id={`standard-max-${props.index}`}
                     onChange={handleChangePrepTimeMax}
-                    label="Max time&nbsp;" className="name-field"
+                    label={lang.maxTime} className="name-field"
                     style={{ width: '100%' }}
-                    InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
                     defaultValue={props.defaultMaxTime}
-                    variant="outlined"
-                    InputProps={{
-                        classes: {
-                            input: classes.resize,
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.outline,
-                        },
-                    }} />
+                    InputLabelProps={labelProps}
+                    variant={type}
+                    InputProps={inputProps} />
             </form>
         )
     }
 
     const renderPortionsInput = () => {
         const classes = props.classes;
+        var w = window.innerWidth;
+        const type: TextFieldTypes = !!(w <= 900) ? TextFieldTypes.Outlined : TextFieldTypes.Standard
+        const inputProps = !!(w <= 900) ? { classes: { input: classes.resize, notchedOutline: classes.outline}} : { classes:{input: classes.resize}}
+        const labelProps = !!(w <= 900) ? { classes: { root: classes.label, focused: classes.focusedLabel } } : { classes:{root: classes.label, focused: classes.focusedLabel}}
+        
         return (
             <form noValidate autoComplete="off" className="portions-input">
                 <TextField id={`standard-portions-${props.index}`}
                     onChange={handleChangePortions}
-                    label="Portions&nbsp;" className="name-field"
+                    label={lang.portions} className="name-field"
                     style={{ width: '100%' }}
                     defaultValue={props.defaultPortions}
-                    InputLabelProps={{ classes: { root: classes.label, focused: classes.focusedLabel } }}
-                    variant="outlined"
-                    InputProps={{
-                        classes: {
-                            input: classes.resize,
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.outline,
-                        },
-                    }} />
+                    InputLabelProps={labelProps}
+                    variant={type}
+                    InputProps={inputProps} />
             </form>
         )
     }
@@ -196,5 +186,5 @@ const CreateInformationBase = (props: IProps) => {
     )
 }
 
-const CreateInformation = (withStyles(styles)(CreateInformationBase));
-export { CreateInformation };
+const InformationInput = (withStyles(styles)(InformationInputBase));
+export { InformationInput };

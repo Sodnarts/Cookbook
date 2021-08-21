@@ -6,15 +6,14 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: rgba(235,235,235, .8);
-
+    background-color: rgba(235, 235, 235, 0.8);
 }
 
 .heading--create {
     position: relative;
     font-size: 2.8rem;
     color: #333;
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
     align-self: center;
 }
 
@@ -32,10 +31,18 @@
     padding-top: 12rem;
     display: flex;
     flex-direction: column;
-     width: 100%;
+    width: 100%;
     position: relative;
     left: 50%;
     transform: translate(-50%);
+}
+
+.container_create--sub-category {
+    padding-top: 12rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
 }
 
 .container__create--ingredients {
@@ -49,14 +56,14 @@
 .p--ingredient {
     font-size: 1.6rem;
     padding-left: 2.4rem;
-    letter-spacing: .24rem;
+    letter-spacing: 0.24rem;
     margin: 1.4rem 1rem 0 1rem;
     color: #444;
     display: flex;
     flex-direction: row;
     padding-bottom: 1.2rem;
-    border-bottom: 1px solid rgba(34,34,34, 0.3);
-    }
+    border-bottom: 1px solid rgba(34, 34, 34, 0.3);
+}
 
 .create--ingredient-col-1 {
     width: calc((100% - 14rem) / 2);
@@ -97,14 +104,14 @@
     margin-left: 2rem !important;
     margin-right: 2rem !important;
     color: #eee !important;
-    font-size: 1.2rem !important; 
+    font-size: 1.2rem !important;
 }
 
 .btn-add--desc {
     background-color: #5193fc !important;
     margin-left: 2rem !important;
     color: #eee !important;
-    font-size: 1.2rem !important; 
+    font-size: 1.2rem !important;
 }
 
 .container-input-fields {
@@ -191,7 +198,7 @@
 
 .btn__submit--white::after {
     color: #eee;
-    background-color: #5193fc
+    background-color: #5193fc;
 }
 
 @media (max-width: 82em) {
@@ -236,7 +243,7 @@
     .create--ingredient-col-1 {
         text-align: center;
     }
-    
+
     .create--ingredient-col-2 {
         text-align: center;
     }
@@ -271,7 +278,7 @@
     .container__create--instructions {
         padding-top: 9rem;
     }
-    
+
     .btn-remove--box {
         margin-right: 1rem !important;
         font-size: 1rem !important;
@@ -292,7 +299,7 @@
 @media (max-width: 30em) {
     .container__create {
         width: 100vw;
-        background-color: rgba(235,235,235, .5);
+        background-color: rgba(235, 235, 235, 0.5);
     }
 
     .container__dish--information {

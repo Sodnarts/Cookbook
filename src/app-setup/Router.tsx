@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { routes } from 'src/common/routes/routes';
-import { CreateRecipe } from 'src/components/create/CreateRecipe';
-import { EditRecipe } from 'src/components/edit/EditRecipe';
-import { ReadRecipe } from 'src/components/read/ReadRecipe';
-import { RecipeList } from 'src/components/recipe-list/RecipeList';
+import { CreateRecipe } from 'src/pages/recipe-create/CreateRecipe';
+import { EditRecipe } from 'src/pages/recipe-edit/EditRecipe';
+import { ReadRecipe } from 'src/pages/recipe-read/ReadRecipe';
+import { RecipeList } from 'src/pages/recipe-list/RecipeList';
 
 
 /**

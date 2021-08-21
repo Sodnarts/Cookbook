@@ -6,7 +6,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    background-color: rgba(235,235,235, .8);
+    background-color: rgba(235, 235, 235, 0.8);
 }
 
 .divider__read {
@@ -22,7 +22,7 @@
     position: relative;
     font-size: 2.8rem;
     color: #333;
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
     align-self: center;
 }
 
@@ -37,17 +37,17 @@
 .p--ingredient {
     font-size: 1.6rem;
     padding-left: 2.4rem;
-    letter-spacing: .24rem;
+    letter-spacing: 0.24rem;
     margin: 1.4rem 1rem 0 1rem;
     color: #444;
     display: flex;
     flex-direction: row;
     padding-bottom: 1.2rem;
-    border-bottom: 1px solid rgba(34,34,34, 0.3);
-    }
+    border-bottom: 1px solid rgba(34, 34, 34, 0.3);
+}
 
 .read--ingredient-col-1 {
-    width: calc((100% - 14rem) / 2);
+    width: calc((100% - 12rem) / 2);
 }
 
 .read--ingredient-col-2 {
@@ -62,7 +62,6 @@
     position: relative;
     flex-grow: 1;
 }
-
 
 .instruction__title {
     text-align: center;
@@ -82,19 +81,19 @@
 
 @media (max-width: 82em) {
     .read--ingredient-col-1 {
-        width: calc((100% - 11rem) / 2);
+        width: calc((100% - 9rem) / 2);
     }
 }
 
 @media (max-width: 74em) {
     .read--ingredient-col-1 {
-        width: calc((100% - 9rem) / 2);
+        width: calc((100% - 8rem) / 2);
     }
 }
 
 @media (max-width: 64em) {
     .read--ingredient-col-1 {
-        width: calc((100% - 7rem) / 2);
+        width: calc((100% - 6rem) / 2);
     }
 
     .p--ingredient {
@@ -120,7 +119,7 @@
         width: 0;
         visibility: hidden;
     }
-    
+
     .p--ingredient {
         margin: 1.4rem 5rem 0 5rem;
     }
@@ -133,7 +132,7 @@
     .read--ingredient-col-1 {
         text-align: center;
     }
-    
+
     .read--ingredient-col-2 {
         text-align: center;
     }
@@ -142,12 +141,13 @@
         padding-top: 9rem;
         margin-bottom: 6rem;
         left: 50%;
-        transform: translate(-50%); }
-    
+        transform: translate(-50%);
+    }
+
     .instruction__title {
         font-size: 2rem;
     }
-    
+
     .instruction__description {
         font-size: 1.4rem;
     }
@@ -156,9 +156,9 @@
 @media (max-width: 36.5em) {
     .container__read {
         width: 100vw;
-        background-color: rgba(235,235,235, .5);
+        background-color: rgba(235, 235, 235, 0.5);
     }
-    
+
     .container__read--ingredients {
         padding-top: 6rem;
     }

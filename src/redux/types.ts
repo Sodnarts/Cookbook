@@ -4,3 +4,7 @@ export const EDIT_RECIPE: string = 'edit_recipe';
 export const DELETE_RECIPE: string = 'delete_recipe';
 export const CREATE_RECIPE: string = 'create_recipe';
 export const TOGGLE_PROGRESS_BAR: string = 'toggle_progress_bar';
+export const GET_CURRENT_PATH_NAME: string = 'get_current_path_name';
+export const FILTER_STRING: string = 'filter_string';
+export const FILTER_SUB_CATEGORY: string = 'filter_sub_category';
+export const SEARCH_VALUE: string = 'search_value';

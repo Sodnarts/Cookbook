@@ -1,10 +1,42 @@
+import { ISubCategory } from 'src/common/utils/SubCategoryConfig';
 
 export type IProgressBarState = number;
 
 export enum FoodCategory {
-    Dinner = "Dinner",
+    Breakfast = "Breakfast",
     Dessert = "Dessert",
-    Snack = "Snack"
+    Dinner = "Dinner",
+    Drinks = "Drinks",
+}
+
+export enum UnitTypes {
+    Millilitres = "ml",
+    Desilitres = "dl",
+    Litres = "l",
+    Grams = "g",
+    Kilograms = "kg",
+    Pieces = "stk",
+    Tablespoon = "ss",
+    Teaspoon = "ts"
+}
+
+export enum SubCategory {
+    Christmas = "Christmas",
+    Easter = "Easter",
+    Summer = "Summer",
+    Icecream = "Icecream",
+    Cake = "Cake",
+    Vegan = "Vegan",
+    Smoothie = "Smoothie",
+    Milkshake = "Milkshake",
+    Cookies = "Cookies",
+    Cocktail = "Cocktail",
+    Mexican = "Mexican",
+    Italian = "Italian",
+    Burger = "Burger",
+    Pizza = "Pizza",
+    Pasta = "Pasta",
+    Sauce = "Sauce",
 }
 
 export interface Ingredient {
@@ -31,11 +63,12 @@ export interface IRecipe {
     ingredients: Ingredient[];
     instructions: Instructions;
     name: string;
+    portions: string;
     prepTimeMax: string;
     prepTimeMin: string;
-    portions: string;
-    type: FoodCategory;
+    subCategories: ISubCategory[];
     timeCreated: number;
+    type: FoodCategory;
     image?: File;
     _id?: string;
 }
@@ -44,4 +77,8 @@ export interface IRootState {
     progressBar: IProgressBarState;
     recipeList: IRecipe[];
     currentRecipe: IRecipe | null;
+    pathName: string;
+    filterValue: FoodCategory | "none";
+    filterSubCategoryValue: FoodCategory | "none";
+    searchValue: string;
 }

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { FETCH_CURRENT_RECIPE, FETCH_RECIPE_LIST, TOGGLE_PROGRESS_BAR } from 'src/redux/types';
-import { ICreateRecipeAction, IDeleteRecipeAction, IEditRecipeAction, IFetchCurrentRecipeAction, IFetchRecipesAction, IToggleProgressBarAction } from 'src/redux/actions/IActions';
+import { FETCH_CURRENT_RECIPE, FETCH_RECIPE_LIST, FILTER_STRING, FILTER_SUB_CATEGORY, GET_CURRENT_PATH_NAME, SEARCH_VALUE, TOGGLE_PROGRESS_BAR } from 'src/redux/types';
+import { ICreateRecipeAction, IDeleteRecipeAction, IEditRecipeAction, IFetchCurrentRecipeAction, IFetchRecipesAction, IFilterSubCategoryValue, IFilterValue, IGetCurrentPathName, ISearchValue, IToggleProgressBarAction } from 'src/redux/actions/IActions';
 import { routes } from 'src/common/routes/routes';
-import { IRecipe } from 'src/redux/reducers/IState';
+import { FoodCategory, IRecipe } from 'src/redux/reducers/IState';
 
 export const toggleProgressBar = (show: boolean) => (dispatch: Dispatch<IToggleProgressBarAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: show });
@@ -43,9 +43,24 @@ export const editRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<IToggle
 
 export const deleteRecipe = (_id: string) => async (dispatch: Dispatch<IToggleProgressBarAction | IDeleteRecipeAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: true });
-    console.log("ID: ", _id);
     const response = await axios.post(routes.api.deleteRecipe, { _id })
 
     dispatch({ type: FETCH_RECIPE_LIST, payload: response.data })
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: false })
+}
+
+export const getCurrentPathName = (pathName: string) => async (dispatch: Dispatch<IGetCurrentPathName>) => {
+    dispatch({ type: GET_CURRENT_PATH_NAME, payload: pathName })
+}
+
+export const filterList = (filterValue: FoodCategory | "none") => async (dispatch: Dispatch<IFilterValue>) => {
+    dispatch({ type: FILTER_STRING, payload: filterValue })
+}
+
+export const filterSubCategory = (filterValue: FoodCategory | "none") => async (dispatch: Dispatch<IFilterSubCategoryValue>) => {
+    dispatch({ type: FILTER_SUB_CATEGORY, payload: filterValue })
+}
+
+export const searchList = (searchValue: string) => async (dispatch: Dispatch<ISearchValue>) => {
+    dispatch({ type: SEARCH_VALUE, payload: searchValue })
 }
