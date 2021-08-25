@@ -20,6 +20,7 @@ import 'src/components/action-button/ActionButton.styles.css';
 import { getLanguageFile } from 'src/common/internationalization/lang';
 import { SubCategoryInput } from 'src/components/sub-category/SubCategoryInput';
 import { ISubCategory, subCategoryList } from 'src/common/utils/SubCategoryConfig';
+import { ImageUploader } from 'src/components/image-uploader/ImageUploader';
 
 interface IState {
     dishName: string;
@@ -27,6 +28,7 @@ interface IState {
     prepTimeMax: string;
     portions: string;
     foodCategory: string;
+    picture: any;
 
     subCategories: ISubCategory[];
     subCategoriesSelectables: ISubCategory[];
@@ -48,7 +50,7 @@ interface IProps {
     history: any;
     classes: any;
     currentRecipe: IRecipe | null;
-    editRecipe(recipe: IRecipe): void;
+    editRecipe(recipe: FormData): void;
     deleteRecipe(_id: string): void;
 }
 
@@ -130,6 +132,7 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
             prepTimeMax: "",
             portions: "",
             foodCategory: "",
+            picture: null,
 
             subCategories: [],
             subCategoriesSelectables: subCategoryList,
@@ -155,6 +158,7 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
         this.setAmount = this.setAmount.bind(this);
         this.setName = this.setName.bind(this);
         this.setSubCategories = this.setSubCategories.bind(this);
+        this.setPicture = this.setPicture.bind(this);
         this.addIngredient = this.addIngredient.bind(this);
         this.removeIngredient = this.removeIngredient.bind(this);
         this.addTitle = this.addTitle.bind(this);
@@ -250,6 +254,7 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
                 prepTimeMax: c.prepTimeMax,
                 portions: c.portions,
                 foodCategory: c.type,
+                picture: c.image,
 
                 subCategories: c.subCategories,
                 subCategoriesSelectables: selectablesList,
@@ -344,6 +349,12 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
         })
     }
 
+    public setPicture(picture: any) {
+        this.setState({ 
+            picture: picture
+        })
+    }
+
     public addIngredient() {
         let tmpIL = [...this.state.ingredientList, ["", "", ""]];
 
@@ -428,8 +439,11 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
             timeCreated: Date.now(),
             _id: this.state.id
         }
+        let data = new FormData();
+        data.append('image', this.state.picture);
+        data.append('recipe', JSON.stringify(recipe))
 
-        this.props.editRecipe(recipe);
+        this.props.editRecipe(data);
     }
 
     public handleDelete() {
@@ -584,6 +598,10 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
                             <Button variant="contained" className="btn-add--desc" onClick={this.addDescription}>{this.lang.approach}&nbsp;<AddIcon style={{ height: '24px', width: '24px', color: '#ddd' }} /></Button>
                         </div>
                     </div>
+                    <div className="container__image-uploader">
+                        <h2 className="heading--create">{this.lang.image}</h2>
+                        <ImageUploader uploadPicture={this.setPicture} image={this.state.picture}/>
+                    </div>
                     <div className="btn__submit--container">
                         <Link to={routes.recipes.recipeList} className="btn__submit btn__submit--white" onClick={this.handleSubmit}>{this.lang.submit}</Link>
                     </div>
@@ -596,6 +614,8 @@ class EditRecipeBase extends React.Component<IEditRecipe, IState> {
         )
     }
 };
+
+// TODO : ADD IMAGE WHEN EDITING RECIPE, SUCH THAT IT NEVER REMOVES IT.
 
 const mapStateToProps = ({ currentRecipe }: IRootState) => {
     return { currentRecipe };

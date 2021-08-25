@@ -48,6 +48,8 @@ export const no = {
     pizza: "Pizza",
     pasta: "Pasta",
     sauce: "Saus",
+    image: 'Bilde',
+    upload: 'Last opp',
 
     g: ["g", "Gram"],
     kg: ["kg", "Kilogram"],

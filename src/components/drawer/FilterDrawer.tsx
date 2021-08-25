@@ -76,7 +76,7 @@ const FilterDrawerBase = (props: IProps) => {
                 <h2 className="filter-title">{lang.search}</h2>
                 <form noValidate autoComplete="off" className="search-input">
                     <TextField id={`standard-max`}
-                        onChange={(event: any) => props.setSearchValue(event.target.value)}
+                        onChange={(event: any) => {props.setSearchValue(event.target.value)}}
                         label={lang.dishName} className="search-field"
                         style={{ width: '100%' }}
                         defaultValue={props.searchValue}

@@ -79,7 +79,13 @@
     flex-direction: column;
     min-height: 10vh;
     position: relative;
-    padding-bottom: 10rem;
+}
+
+.container__image-uploader {
+    padding-top: 12rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .btn-container {

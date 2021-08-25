@@ -9,6 +9,7 @@ import { Fab } from '@material-ui/core';
 import 'src/components/action-button/ActionButton.styles.css';
 import { getLanguageFile } from 'src/common/internationalization/lang';
 import { ISubCategory } from 'src/common/utils/SubCategoryConfig';
+import { foodCategoryMappings } from 'src/common/utils/FoodCategoryConfig';
 
 interface IState {
     recipeList: IRecipe[];
@@ -46,6 +47,7 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
             filterSubCategoryValue: "initial",
             searchValue: ""
         }
+
     }
 
     public componentDidMount() {
@@ -75,7 +77,7 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
                 })
             })
         }
-
+        // When reaching empty. and on next input, props aren't called. Value is reaching reducer.
         // Searched List
         if (props.searchValue === "") {
             searchedList = [...filteredSubCategoryList];
@@ -111,6 +113,21 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
         }
     }
 
+    public getBackgroundImage(recipe: IRecipe) {
+        switch(recipe.type) {
+            case FoodCategory.Breakfast:
+                return `linear-gradient(to right bottom, #bbb, #555), url(${!!(recipe.image) ? 'data:image/png;base64,'+recipe.image.img.data : 'assets/nat-7.jpg'}`;
+            case FoodCategory.Drinks:
+                return `linear-gradient(to right bottom, #2998ff, #2998ff), url(${!!(recipe.image) ? 'data:image/png;base64,'+recipe.image.img.data : 'assets/nat-7.jpg'}`;
+            case FoodCategory.Dessert:
+                return `linear-gradient(to right bottom, #7ed56f, #28b485), url(${!!(recipe.image) ? 'data:image/png;base64,'+recipe.image.img.data : 'assets/nat-6.jpg'}`;
+            case FoodCategory.Dinner: 
+                return `linear-gradient(to right bottom, #ffb900, #ff7730), url(${!!(recipe.image) ? 'data:image/png;base64,'+recipe.image.img.data : 'assets/nat-5.jpg'}`;
+            default: 
+                return `linear-gradient(to right bottom, #ffb900, #ff7730), url(${!!(recipe.image) ? 'data:image/png;base64,'+recipe.image.img.data : 'assets/nat-5.jpg'}`;
+        }
+    }
+
     public renderCard(rl2: IRecipe[], i: number) {
         const rl = rl2.sort((a, b) => (a.timeCreated > b.timeCreated) ? -1 : ((b.timeCreated > a.timeCreated) ? 1 : 0))
         return (
@@ -120,7 +137,7 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
                         <div className="col-1-of-3" key={index}>
                             <div className="card">
                                 <div className="card__side card__side--front">
-                                    <div className={`card__picture card__picture--${this.getType(r)}`}>
+                                    <div style={{backgroundImage: this.getBackgroundImage(r)}} className={`card__picture`}>
 
                                     </div>
                                     <h4 className="card__heading">
@@ -132,9 +149,8 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
                                         <ul>
                                             <li>{r.prepTimeMin} - {r.prepTimeMax} min</li>
                                             <li>{this.lang.portions}: {r.portions}</li>
-                                            <li>{r.type}</li>
-                                            <li>{this.lang.missingText}</li>
-                                            <li>{this.lang.missingText}</li>
+                                            <li>{foodCategoryMappings(r.type)}</li>
+                                            <li>{"Antall ingredienser: " + r.ingredients.length}</li>
                                         </ul>
                                     </div>
                                 </div>

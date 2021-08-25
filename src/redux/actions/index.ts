@@ -3,7 +3,11 @@ import { Dispatch } from 'redux';
 import { FETCH_CURRENT_RECIPE, FETCH_RECIPE_LIST, FILTER_STRING, FILTER_SUB_CATEGORY, GET_CURRENT_PATH_NAME, SEARCH_VALUE, TOGGLE_PROGRESS_BAR } from 'src/redux/types';
 import { ICreateRecipeAction, IDeleteRecipeAction, IEditRecipeAction, IFetchCurrentRecipeAction, IFetchRecipesAction, IFilterSubCategoryValue, IFilterValue, IGetCurrentPathName, ISearchValue, IToggleProgressBarAction } from 'src/redux/actions/IActions';
 import { routes } from 'src/common/routes/routes';
-import { FoodCategory, IRecipe } from 'src/redux/reducers/IState';
+import { FoodCategory } from 'src/redux/reducers/IState';
+
+const config = {
+    headers: { 'content-type': 'multipart/form-data' }
+}
 
 export const toggleProgressBar = (show: boolean) => (dispatch: Dispatch<IToggleProgressBarAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: show });
@@ -25,17 +29,17 @@ export const getCurrentRecipe = (_id: string) => async (dispatch: Dispatch<ITogg
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: false })
 }
 
-export const createRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<IToggleProgressBarAction | ICreateRecipeAction>) => {
+export const createRecipe = (recipe: FormData) => async (dispatch: Dispatch<IToggleProgressBarAction | ICreateRecipeAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: true });
-    const response = await axios.post(routes.api.newRecipe, { recipe })
-
+    const response = await axios.post(routes.api.newRecipe, recipe, config)
+    
     dispatch({ type: FETCH_RECIPE_LIST, payload: response.data })
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: false })
 }
 
-export const editRecipe = (recipe: IRecipe) => async (dispatch: Dispatch<IToggleProgressBarAction | IEditRecipeAction>) => {
+export const editRecipe = (recipe: FormData) => async (dispatch: Dispatch<IToggleProgressBarAction | IEditRecipeAction>) => {
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: true });
-    const response = await axios.post(routes.api.editRecipe, { recipe })
+    const response = await axios.post(routes.api.editRecipe, recipe, config)
 
     dispatch({ type: FETCH_RECIPE_LIST, payload: response.data })
     dispatch({ type: TOGGLE_PROGRESS_BAR, payload: false })

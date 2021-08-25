@@ -5,6 +5,7 @@ export const routes = {
         newRecipe: `${process.env.REACT_APP_API_BASE_URL}/api/recipes/new`,
         editRecipe: `${process.env.REACT_APP_API_BASE_URL}/api/recipes/edit`,
         deleteRecipe: `${process.env.REACT_APP_API_BASE_URL}/api/recipes/delete`,
+        postImage: `${process.env.REACT_APP_API_BASE_URL}/api/recipes/image`,
     },
     recipes: {
         recipeList: '/',

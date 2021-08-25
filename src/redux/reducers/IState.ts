@@ -69,7 +69,7 @@ export interface IRecipe {
     subCategories: ISubCategory[];
     timeCreated: number;
     type: FoodCategory;
-    image?: File;
+    image?: any;
     _id?: string;
 }
 

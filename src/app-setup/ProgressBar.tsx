@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
             'marginTop': '65px',
             'position': 'fixed',
             'width': '100%',
-            'zIndex': 1000,
+            'zIndex': 1075,
         },
     }),
 );

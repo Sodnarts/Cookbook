@@ -15,6 +15,7 @@ import { getLanguageFile } from 'src/common/internationalization/lang';
 import { routes } from 'src/common/routes/routes';
 import { SubCategoryInput } from 'src/components/sub-category/SubCategoryInput';
 import { ISubCategory, subCategoryList } from 'src/common/utils/SubCategoryConfig';
+import { ImageUploader } from 'src/components/image-uploader/ImageUploader';
 
 interface IState {
     dishName: string;
@@ -22,6 +23,7 @@ interface IState {
     prepTimeMax: string;
     portions: string;
     foodCategory: string;
+    picture: any;
 
     subCategoryList: ISubCategory[];
 
@@ -36,7 +38,7 @@ interface IState {
 interface IProps {
     match: any;
     classes: any;
-    createRecipe(recipe: IRecipe): void;
+    createRecipe(recipe: FormData): void;
     getCurrentPathName(pathName: string): void;
 }
 
@@ -112,6 +114,7 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
             prepTimeMax: "",
             portions: "",
             foodCategory: "",
+            picture: null,
 
             subCategoryList: [],
 
@@ -132,6 +135,7 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         this.setAmount = this.setAmount.bind(this);
         this.setName = this.setName.bind(this);
         this.setSubCategories = this.setSubCategories.bind(this);
+        this.setPicture = this.setPicture.bind(this);
         this.addIngredient = this.addIngredient.bind(this);
         this.removeIngredient = this.removeIngredient.bind(this);
         this.addTitle = this.addTitle.bind(this);
@@ -220,6 +224,12 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
         })
     }
 
+    public setPicture(picture: any) {
+        this.setState({ 
+            picture: picture
+        })
+    }
+
     public addIngredient() {
         let tmpIL = [...this.state.ingredientList, ["", "", ""]];
 
@@ -303,8 +313,11 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
             type: !!this.state.foodCategory ? this.state.foodCategory as FoodCategory : FoodCategory.Dinner,
             timeCreated: Date.now(),
         }
+        let data = new FormData();
+        data.append('image', this.state.picture);
+        data.append('recipe', JSON.stringify(recipe))
 
-        this.props.createRecipe(recipe);
+        this.props.createRecipe(data);
     }
 
     public renderIngredientInput() {
@@ -411,6 +424,10 @@ class CreateRecipeBase extends React.Component<ICreateRecipe, IState> {
                         <Button variant="contained" className="btn-add--title" onClick={this.addTitle}>{this.lang.step}&nbsp;<AddIcon style={{ height: '24px', width: '24px', color: '#ddd' }} /></Button>
                         <Button variant="contained" className="btn-add--desc" onClick={this.addDescription}>{this.lang.approach}&nbsp;<AddIcon style={{ height: '24px', width: '24px', color: '#ddd' }} /></Button>
                     </div>
+                </div>
+                <div className="container__image-uploader">
+                    <h2 className="heading--create">{this.lang.image}</h2>
+                    <ImageUploader uploadPicture={this.setPicture}/>
                 </div>
                 <div className="btn__submit--container">
                     <Link to={routes.recipes.recipeList} className="btn__submit btn__submit--white" onClick={this.handleSubmit}>{this.lang.submit}</Link>
