@@ -1,5 +1,6 @@
 export const no = {
     amount: "Mengde",
+    amountOfIngredients: "Antall ingredienser: ",
     approach: "Fremgangsmåte",
     cancel: "Avbryt",
     category: "Kategori",

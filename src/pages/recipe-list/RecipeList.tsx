@@ -150,7 +150,7 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
                                             <li>{r.prepTimeMin} - {r.prepTimeMax} min</li>
                                             <li>{this.lang.portions}: {r.portions}</li>
                                             <li>{foodCategoryMappings(r.type)}</li>
-                                            <li>{"Antall ingredienser: " + r.ingredients.length}</li>
+                                            <li>{this.lang.amountOfIngredients + r.ingredients.length}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@ class RecipeListBase extends React.Component<IRecipeList, IState> {
                                     <div className="card__cta">
                                         <div className="card__price-box">
                                             <p className="card__price-only">{this.lang.created}:</p>
-                                            <p className="card__price_value">{`${new Date(r.timeCreated).getDate()}.${new Date(r.timeCreated).getMonth()}.${new Date(r.timeCreated).getFullYear()}`}</p>
+                                            <p className="card__price_value">{`${new Date(r.timeCreated).getDate()}.${new Date(r.timeCreated).getMonth() + 1}.${new Date(r.timeCreated).getFullYear()}`}</p>
                                         </div>
                                         <Link to={`/read/${r._id}`} className="btn btn--white">{this.lang.goToRecipe}</Link>
                                     </div>

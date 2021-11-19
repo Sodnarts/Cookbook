@@ -1,4 +1,4 @@
-//import { en } from 'src/common/internationalization/en';
+import { en } from 'src/common/internationalization/en';
 import { no } from 'src/common/internationalization/no';
 
 export const getLanguageFile: any = () => {
@@ -12,7 +12,7 @@ export const getLanguageFile: any = () => {
     // }
 
     // If no file was found, return english.
-    return no;
+    return en;
 };
 
 export const lang = getLanguageFile();
