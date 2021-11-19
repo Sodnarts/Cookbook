@@ -1,5 +1,5 @@
 import { en } from 'src/common/internationalization/en';
-import { no } from 'src/common/internationalization/no';
+//import { no } from 'src/common/internationalization/no';
 
 export const getLanguageFile: any = () => {
     // if (!!state.account.language) {
