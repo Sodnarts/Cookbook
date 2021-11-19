@@ -6,7 +6,7 @@
     "sodnarts-react": {
       "hosting": {
         "prod": [
-          "sodnarts-cookbook"
+          "sodnarts-recipes"
         ],
         "test": [
           "sodnarts-recipes-test"
